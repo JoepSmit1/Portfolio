@@ -549,6 +549,7 @@
   .zoom__embed .zoom__rationale{ margin-top:2.4rem; }
   .zoom__embed .wrap h3, .zoom__embed .ge-refs h3{ font-size:1.15rem; margin:0 0 1rem; }
   .zoom__embed .wrap p + h3{ margin-top:2.4rem; }
+  .zoom__embed .wrap div + h3{ margin-top:2.4rem; }
   .zoom__embed .wrap p, .zoom__embed .ge-refs ul li{ font-size:1.45rem; line-height:1.65; max-width:62ch; }
   .ge-refs ul{ list-style:none; margin:0 !important; padding:0 !important; line-height:inherit !important; }
   .ge-refs ul li{ line-height:1.65; max-width:none; padding-left:0; text-indent:0; opacity:1; margin-top:.8em; }
@@ -1423,16 +1424,14 @@
   var root = document.documentElement;
   var themeBtn = document.getElementById('themeToggle');
   function currentTheme(){
-    var stored = null;
-    try { stored = localStorage.getItem('portfolio-theme'); } catch(e){}
-    if (stored === 'light' || stored === 'dark') return stored;
+    /* always open in the dark navy theme; the toggle only lasts for this visit */
     return 'dark';
   }
   function applyTheme(t){ root.setAttribute('data-theme', t); }
   function setTheme(t){
     applyTheme(t);
-    try { localStorage.setItem('portfolio-theme', t); } catch(e){}
   }
+  try { localStorage.removeItem('portfolio-theme'); } catch(e){}
   applyTheme(currentTheme());
   themeBtn.addEventListener('click', function(){
     setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
